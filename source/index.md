@@ -231,6 +231,32 @@ e.g : http://api.trees.id/?object=lot&id=6630
 e.g Map : http://api.trees.id/?object=lot&id=6630&content=map
 </aside>
 
+## Get a Statistik Lot
+
+
+> The code beside returns JSONP structured like this:
+
+```json
+{
+    "success": 1,
+    "message": "Record(s) Found",
+    "total_pohon": 256543166,
+    "total_lot": 51925,
+    "total_relawan": 562,
+    "total_desa": 1480,
+    "total_petani": 33235,
+    "total_verifikator": 16
+}
+```
+
+This endpoint retrieves a statistik lot.
+
+
+### HTTP Request
+
+`GET http://api.trees.id/statistik`
+
+
 # Blocks
 
 ## Get All Blocks With Filter (Archive)
@@ -401,7 +427,8 @@ content | string (name) | data | Must set as name.
     "agregat_lot": 35211,
     "agregat_relawan": 477,
     "agregat_desa": 1232,
-    "agregat_petani": 23785
+    "agregat_petani": 23785,
+    "agregat_verifikator": 12
 }
 ```
 
@@ -869,8 +896,8 @@ This endpoint retrieves a specific tree by tree_code.
 
 ### URL Parameters
 
-Parameter | Type/Value | Default | Description
---------- | ---- | ------- | -----------
+Parameter | Type (Value) | Default | Description
+--------- | ------------ | ------- | -----------
 object | string | null | Main condition request.
 tree_code | string | null | The code for reedim tree.
 
@@ -916,11 +943,71 @@ This endpoint retrieves a specific tree by ID.
 
 ### URL Parameters
 
-Parameter | Type/Value | Default | Description
---------- | ---- | ------- | -----------
+Parameter | Type (Value) | Default | Description
+--------- | ------------ | ------- | -----------
 object | string | null | Main condition request.
 id | string | null | The ID of the tree to retrieve.
 
 <aside class="success">
 e.g : http://api.trees.id/?object=tree&tree_code=E8432RXD1U
 </aside>
+
+## Naming Tree (POST)
+
+> The code beside returns JSON structured like this:
+
+```json
+{
+    "status":"success",
+    "link_pohon":"http:\/\/domain.com\/tree-view-new\/10\/9",
+    "image_path":"http:\/\/domain.com\/tree\/3602\/4012\/000009.jpg",
+    "title":"Dummy",
+    "name":"dummy-1"
+}
+```
+
+This endpoint use for naming tree on lot.
+
+
+### Shell Request
+
+`curl --data '{"title": "<name tree>","name_donation": "<author>","no_hp_donation": "<no>","email": "<email>","lot_id": "<ID Lot>","app_key": "<app_key>","app_id": "<app_id>"}' http://api.trees.id/api/tree`
+
+### Shell Parameters
+
+Parameter | Type (Value) | Status | Description
+--------- | ------------ | ------- | -----------
+title | string | required | Name of tree.
+name_donation | string | required | Name author.
+no_hp_donation | string | required | Number Telp author.
+email | string | required | Email of author.
+lot_id | int | required | ID Lot for tree.
+app_key | string | required | APP Key.
+app_id | int | required | APP ID.
+
+
+## Redeem Tree (POST)
+
+> The code beside returns message succes or error.
+
+
+This endpoint use for redeem tree on lot.
+
+
+### URL Request Post
+
+`POST http://api.trees.id/redeem-tree`
+
+<aside class="notice">
+Sent post data to url above.
+</aside>
+
+### Post Data Parameter
+
+Name | Type (Value) | Status | Description
+--------- | ------------ | ------- | -----------
+Tree[title] | string | required | Name of tree.
+Tree[code] | string | required | Code Tree.
+Tree[name_donation] | string | required | Name author.
+Tree[no_hp_donation] | string | required | Number Telp author.
+Tree[email] | string | required | Email of author.
